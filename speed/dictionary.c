@@ -34,7 +34,8 @@
 typedef struct ChainLink
 {
     uint32_t value;
-    char key[45];
+//    char key[45];
+    const char *key;
     struct ChainLink* next;
 } chain_link;
 
@@ -42,6 +43,8 @@ chain_link* CreateLink(uint32_t val, const char * key);
 chain_link* AddLink(chain_link* head, uint32_t val, const char * key);
 // fstat example from fstat man page
 // memchr example from memchr man page
+
+char *mem_dict;
 
 //chain_link Start;
 chain_link *Trav;
@@ -92,7 +95,7 @@ bool load (const char* dictionary)
 //    printf("Size of chain_link: %zd\n", sizeof(chain_link));
 //    printf("file size: %llu\n", (long long)test_stat.st_size);
     
-    char *mem_dict;
+//    char *mem_dict;
     if ((mem_dict = malloc((long long)test_stat.st_size + 1)) == NULL)
     {
         return false;
@@ -133,7 +136,7 @@ bool load (const char* dictionary)
         word_start = where_at;
         counter++;
     }
-    free(mem_dict);
+//    free(mem_dict);
     printf("Unique Locations: %d", actual_counter);
 //    printf("Words: %d\n", counter);
 //    printf("Collisions: %d\n", collisions);
@@ -149,7 +152,8 @@ inline chain_link* CreateLink(uint32_t val, const char * key)
         exit(EXIT_FAILURE);
     }
     temp -> value = val;
-    memcpy(temp -> key, key, strlen(key)+1);
+//    memcpy(temp -> key, key, strlen(key)+1);
+    temp -> key = key;
     temp -> next = NULL;
     return temp;
 }
@@ -163,7 +167,8 @@ inline chain_link* AddLink(chain_link* head, uint32_t val, const char * key)
         exit(EXIT_FAILURE);
     }
     temp -> value = val;
-    memcpy(temp -> key, key, strlen(key)+1);
+//    memcpy(temp -> key, key, strlen(key)+1);
+    temp -> key  = key;
     temp -> next = head;
     return temp;
 }
